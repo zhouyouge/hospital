@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.future.dao.DrugDao" >
+
+    <!--查询药品信息-->
+    <!--where帮忙删除第一个and-->
+    <select id="getDrugList" resultType="Drug" parameterType="Drug">
+        select * from drug
+        <where>
+            <if test="id!=null and id>0">
+                id=#{id}
+            </if>
+            <if test="name!=null and name!=''">
+               and name=#{name}
+            </if>
+            <if test="formid!=null and formid!=''">
+               and formid=#{formid}
+            </if>
+            <if test="batch!=null and batch!=''">
+               and batch=#{batch}
+            </if>
+            <if test="supplierid!=null and supplierid!=''">
+               and supplier=#{supplier}
+            </if>
+            <if test="bprice!=null and bprice>0">
+               and bprice=#{bprice}
+            </if>
+            <if test="sprice!=null and sprice>0">
+               and sprice=#{sprice}
+            </if>
+            <if test="totalprice!=null and totalprice>0">
+                and totalprice=#{totalprice}
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap id="dr" type="Drug">
+        <id column="d.id" property="id" />
+        <result column="d.name" property="name" />
+        <result column="d.formid" property="formid" />
+        <result column="d.batch" property="batch" />
+        <result column="d.supplierid" property="supplierid" />
+        <result column="d.bprice" property="bprice" />
+        <result column="d.sprice" property="sprice" />
+        <result column="d.totalprice" property="totalprice" />
+    </resultMap>
+
+    <!--添加药品信息-->
+    <insert id="addDrug" parameterType="Drug">
+        insert into drug(name,formid,batch,supplierid,bprice,sprice)
+        values (#{name},#{formid},#{batch},#{supplierid},#{bprice},#{sprice})
+    </insert>
+
+    <!--根据药品ID修改药品库存-->
+    <!--set删除最后的逗号-->
+    <update id="updateDrug" parameterType="Drug">
+        update drug set name=#{name},formid=#{formid},batch=#{batch},supplierid=#{supplierid},bprice=#{bprice},sprice=#{sprice},totalprice=#{totalprice}
+        where id=#{id}
+    </update>
+
+    <!--根据药品ID删除药品信息-->
+    <delete id="delDrug" parameterType="Drug">
+        delete from drug where id=#{id}
+    </delete>
+
+
+</mapper>

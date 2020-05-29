@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.dao.StuffDao">
+
+
+    <select id="queryAllStuff" resultType="Stuff">
+        SELECT s.id, s.name, s.age, (case s.sex when 0 then '女' else '男' end) as sex, s.hiredate,
+        de.`name` departmentName, -- 二级部门名称
+        ra.`name` rankName, -- 职位名称
+        s.username, s.PASSWORD,
+        ( CASE s.STATUS WHEN 0 THEN '在职' WHEN 1 THEN '待职' ELSE '离职' END ) as `status`
+        FROM stuff s
+        LEFT JOIN department de on de.id = s.departmentid
+        LEFT JOIN rank ra on ra.id = s.rankid
+        where 1=1
+        <if test="params.username != 'admin'">
+            and s.status = 0
+        </if>
+        <if test="params.name != null and params.name != '' ">
+            AND s.name like CONCAT('%',#{params.name},'%')
+        </if>
+        order by s.hiredate desc
+        LIMIT #{params.page},#{params.pageSize}
+    </select>
+
+    <select id="queryStuff" parameterType="int" resultType="Stuff">
+           select s.*,d1.`name` departmentName,r.`name` rankName,d2.id departmentsId from stuff s
+        LEFT JOIN department d1 on d1.id = s.departmentid
+        LEFT JOIN departments d2 on d2.id = d1.departmentsid
+        LEFT JOIN rank r on r.id = s.rankid WHERE s.id=#{id}
+    </select>
+
+    <select id="loginStuff" resultType="com.future.entity.Stuff" parameterType="string">
+        SELECT
+            s.id,
+            s.NAME,
+            s.age,
+            ( CASE s.sex WHEN 0 THEN '女' ELSE '男' END ) AS sex,
+            s.hiredate,
+            s.leavedate,
+			s.departmentid,
+			s.rankid,
+            de.`name` departmentName,
+            ra.`name` rankName,
+            s.username,
+            s.PASSWORD,
+            ( CASE s.STATUS WHEN 0 THEN '在职' WHEN 1 THEN '待职' ELSE '离职' END ) AS `status` ,
+			des.id departmentsId,
+            des.`name` departmentsName
+        FROM
+            stuff s
+            LEFT JOIN department de ON de.id = s.departmentid
+            LEFT JOIN departments des on des.id=de.departmentsid
+            LEFT JOIN rank ra ON ra.id = s.rankid
+        WHERE 1=1
+            and username=#{userName}
+            and password=#{password}
+            and status = 0
+    </select>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(id) from stuff
+    </select>
+
+    <select id="queryDoctorStuff" resultType="com.future.entity.Stuff">
+        select id,name FROM stuff WHERE departmentid=#{id} and status = 0
+    </select>
+
+
+    <insert id="addStuff" parameterType="Stuff">
+        insert into stuff
+        (name,age,sex,hiredate,departmentid,rankid,username,PASSWORD,status)
+        VALUES
+        (#{name},#{age},#{sex},#{hiredate},#{departmentid},#{rankid},#{username},#{password},#{status});
+    </insert>
+
+    <!-- 2 ：代表离职-->
+    <update id="deleteStuffById" parameterType="int">
+        UPDATE stuff set status = 2 ,leavedate = NOW()
+        WHERE id=#{id}
+    </update>
+
+    <!--批量删除-->
+    <update id="deleteStuffByIds">
+        UPDATE stuff set status = 2 ,leavedate = NOW()
+        WHERE id IN(#{ids})
+    </update>
+
+    <update id="updateStuff">
+        UPDATE stuff set name=#{st.name},age=#{st.age},sex=#{st.sex},
+        hiredate=#{st.hiredate},departmentid=#{st.departmentid},rankid=#{st.rankid},
+        username=#{st.username},status=#{st.status}
+        <if test="st.status == 2">
+            ,leavedate=#{st.leavedate}
+        </if>
+        WHERE id=#{st.id}
+    </update>
+
+    <!--修改密码-->
+    <update id="changePassword" parameterType="Stuff">
+        UPDATE stuff set `password`=#{password} WHERE id=#{id}
+    </update>
+
+</mapper>

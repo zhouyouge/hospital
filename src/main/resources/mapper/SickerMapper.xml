@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.dao.SickerDao">
+        <select id="queryDepartment" resultType="Department">
+            SELECT * FROM department
+        </select>
+    <select id="querySicker" resultType="Sicker">
+        SELECT * FROM sicker
+    </select>
+    <delete id="deleteSicker" parameterType="int">
+        DELETE FROM sicker WHERE id=#{id}
+    </delete>
+    <insert id="addSicker" parameterType="Sicker">
+        INSERT INTO sicker(name,age,sex,cardid,balance,sbid,tel)
+            VALUES(#{name},#{age},#{sex},#{cardid},#{balance},#{sbid},#{tel})
+    </insert>
+    <update id="updateSicker" parameterType="Sicker">
+        UPDATE sicker SET name=#{name},age=#{age},sex=#{sex},cardid=#{cardid},balance=#{balance},
+        sbid=#{sbid},tel=#{tel}WHERE id=#{id}
+    </update>
+</mapper>

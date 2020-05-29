@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.dao.DrugtransDao" >
+
+
+    <!--查询交易记录-->
+    <select id="getDrugtransList" resultType="Drugtrans" parameterType="Drugtrans">
+        select * from drugtrans
+        <where>
+            <if test="id!=null and id>0">
+                id=#{id}
+            </if>
+            <if test="typeid!=null and typeid>0">
+              and typeid=#{typeid}
+            </if>
+            <if test="drugid!=null and drugid>0">
+               and drugid=#{drugid}
+            </if>
+            <if test="number!=null and number>0">
+               and number=#{number}
+            </if>
+            <if test="unit!=null and unit!=''">
+               and unit=#{unit}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="drt" type="Drugtrans">
+        <id column="dt.id" property="id" />
+        <result column="dt.typeid" property="typeid" />
+        <result column="dt.drugid" property="drugid" />
+        <result column="dt.number" property="number" />
+        <result column="dt.unitid" property="unitid" />
+        <result column="supplierid" property="supplierid" />
+    </resultMap>
+
+    <!--添加交易记录-->
+    <insert id="addDrugtrans" parameterType="Drugtrans">
+        insert into drugtrans(typeid,drugid,number,unitid)
+        values (#{typeid},#{drugid},#{number},#{unitid})
+    </insert>
+
+    <!--删除交易记录-->
+    <delete id="delDrugTrans" parameterType="Drugtrans">
+        delete from drugtrans where id=#{id}
+    </delete>
+
+    <!--修改交易记录-->
+    <update id="updateDrugtrans" parameterType="Drugtrans">
+        update drugtrans set typeid=#{typeid},drugid=#{drugid},number=#{number},unitid=#{unitid},supplierid=#{supplierid}
+        where id=#{id}
+    </update>
+
+    <!--&lt;!&ndash;级联查询交易记录&ndash;&gt;-->
+    <!--<select id="" resultMap="drt" parameterType="Drugtrans">-->
+        <!--select u.id,u.userName,u.password,u.realName,r.name-->
+        <!--from users u-->
+        <!--inner join drug d on u.id = d.id-->
+        <!--inner join drugtrans dt on d.id= dt.id-->
+        <!--where userName=#{userName}-->
+        <!--and password=#{password}-->
+    <!--</select>-->
+
+</mapper>

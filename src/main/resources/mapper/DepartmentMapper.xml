@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.dao.DepartmentDao">
+
+    <select id="queryNum" parameterType="int" resultType="Department">
+        SELECT * FROM department where id= #{id}
+    </select>
+
+    <select id="queryDepartment" parameterType="int" resultType="com.future.entity.Department">
+        SELECT * from department where departmentsid = #{departmentsId}
+    </select>
+
+    <select id="queryAllDepartment" resultType="com.future.entity.Department">
+        select id,name FROM department
+    </select>
+
+    <update id="updateDepartmentNum" parameterType="Department">
+        UPDATE department set peoplecount=#{peoplecount}
+        WHERE id= #{id}
+    </update>
+
+</mapper>

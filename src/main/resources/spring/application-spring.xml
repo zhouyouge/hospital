@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+    <!--开启service扫包-->
+    <context:component-scan base-package="*.*.service"/>
+
+    <!--连接池配置-->
+    <bean id="datasource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url">
+            <value><![CDATA[jdbc:mysql://localhost:3306/hospital?
+    		useUnicode=true
+    		&characterEncoding=UTF-8]]></value>
+        </property>
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+        <!--初始化创建连接数-->
+        <property name="initialSize" value="10"/>
+        <!--最大连接数-->
+        <property name="maxActive" value="20"/>
+        <!--最小连接数-->
+        <property name="minIdle" value="1"/>
+        <!--最大等待延迟时间-->
+        <property name="maxWait" value="20000"/>
+    </bean>
+
+    <!--mapper集成到spring-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="configLocation">
+            <value>classpath:mybatis-config.xml</value>
+        </property>
+    </bean>
+
+    <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>-->
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.future.dao"/>
+    </bean>
+
+    <!--自动增强-->
+    <bean id="serviceLogger" class="com.future.utils.ServiceLogger"/>
+
+    <aop:aspectj-autoproxy/>
+
+    <!--声明事务管理器-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="datasource" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

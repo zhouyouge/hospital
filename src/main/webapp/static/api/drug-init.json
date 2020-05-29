@@ -1,0 +1,123 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "static/page/welcome-1.html?t=1"
+  },
+  "logoInfo": {
+    "title": "药房",
+    "image": "static/images/logo.png",
+    "href": "static/jsp/drug/list.jsp"
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "药品管理",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "添加",
+              "href": "static/jsp/drug/addDrug.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "删除",
+              "href": "static/jsp/drug/delDrug.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "修改",
+              "href": "static/jsp/drug/updateDrug.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "查看",
+              "href": "static/jsp/drug/list.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "药品交易记录管理",
+          "href": "page/menu.html",
+          "icon": "fa fa-window-maximize",
+          "target": "_self",
+          "child": [
+            {
+              "title": "查看",
+              "href": "static/jsp/drugTrans/list.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "添加",
+              "href": "static/jsp/drugTrans/addDrugTrans.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "删除",
+              "href": "static/jsp/drugTrans/delDrugtrans.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "修改",
+              "href": "static/jsp/drugTrans/updateDrugtrans.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "药品列表查询",
+          "href": "static/jsp/drug/list.jsp",
+          "icon": "fa fa-gears",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "title": "供应商管理",
+      "icon": "fa fa-lemon-o",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "查看",
+          "href": "page/icon.html",
+          "icon": "fa fa-dot-circle-o",
+          "target": "_self"
+        },
+        {
+          "title": "添加",
+          "href": "page/icon-picker.html",
+          "icon": "fa fa-adn",
+          "target": "_self"
+        },
+        {
+          "title": "删除",
+          "href": "page/color-select.html",
+          "icon": "fa fa-dashboard",
+          "target": "_self"
+        },
+        {
+          "title": "修改",
+          "href": "page/table-select.html",
+          "icon": "fa fa-edit",
+          "target": "_self"
+        }
+      ]
+    }
+  ]
+}

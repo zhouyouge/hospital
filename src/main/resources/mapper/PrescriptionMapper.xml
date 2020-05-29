@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.future.dao.PrescriptionDao">
+    
+    
+    
+    <resultMap id="preMap" type="Prescription">
+        <id column="pid" property="id"/>
+        <result column="typename" property="typename"/>
+        <result column="doctor" property="stuff.name"/>
+        <result column="sickername" property="sicker.name"/>
+        <result column="sickerage" property="sicker.age"/>
+        <result column="sickersex" property="sicker.sex"/>
+        <result column="sickertel" property="sicker.tel"/>
+        <result column="illnessname" property="illnessName"/>
+        <result column="curedate" property="curedate"/>
+        <result column="state" property="state"/>
+        <collection property="cureList" ofType="Cure">
+            <result column="drugName" property="drugName"/>
+            <result column="ua" property="useageName"/>
+            <result column="dosageid" property="dosageid" />
+            <result column="bill" property="bill"/>
+            <result column="unitname" property="unitName"/>
+        </collection>
+    </resultMap>
+    
+    <select id="getList" parameterType="Prescription" resultMap="preMap">
+       SELECT p.id as 'pid',t.name as 'typename',s.name as 'doctor',si.name as 'sickername',
+        si.age as 'sickerage',si.sex as 'sickersex',si.tel as 'sickertel',ill.name as 'illnessname',curedate,state,
+        d.`name` as 'drugName',u.`name` as 'ua',c.dosageid as 'dosageid',c.bill as 'bill',unit.name as 'unitname' from prescription p
+        LEFT JOIN curetype t ON t.id = p.typeid
+        LEFT JOIN stuff s ON s.id = p.staffid
+        LEFT JOIN sicker si ON si.id = p.sickerid
+        LEFT JOIN illness ill ON ill.id = p.illnessid
+        RIGHT JOIN cure c ON c.pid = p.id
+        LEFT JOIN drug d on d.id = c.choose
+        LEFT JOIN useage u ON u.id = c.useageid
+        LEFT join unit unit on unit.id=c.useageid
+        <where>
+            <if test="staffid!=null and staffid!=''">
+                and p.staffid = #{staffid}
+            </if>
+            <if test="startTime!=null and startTime!=''">
+                and p.curedate > #{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and #{endTime} >  p.curedate
+            </if>
+            <if test="sickerid!=null and sickerid!=''">
+                and p.sickerid = #{sickerid}
+            </if>
+            <if test="sicker!=null and sicker.name!=null and sicker.name!=''">
+                and p.sickerid = (select id from sicker where name = #{sicker.name})
+            </if>
+            <if test="id!=null and id>0">
+                and p.id = #{id}
+            </if>
+         </where>
+        <if test="limit>0 and startNum>=0">
+            limit #{startNum},#{limit}
+        </if>
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT count(distinct p.id) from prescription p
+        LEFT JOIN curetype t ON t.id = p.typeid
+        LEFT JOIN stuff s ON s.id = p.staffid
+        LEFT JOIN sicker si ON si.id = p.sickerid
+        LEFT JOIN illness ill ON ill.id = p.illnessid
+        RIGHT JOIN cure c ON c.pid = p.id
+        LEFT JOIN drug d on d.id = c.choose
+        LEFT JOIN useage u ON u.id = c.useageid
+        <where>
+            <if test="staffid!=null and staffid!=''">
+                and p.staffid = #{staffid}
+            </if>
+            <if test="startTime!=null and startTime!=''">
+                and p.curedate > #{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                and #{endTime} >  p.curedate
+            </if>
+            <if test="sickerid!=null and sickerid!=''">
+                and p.sickerid = #{sickerid}
+            </if>
+            <if test="sicker!=null and sicker.name!=null and sicker.name!=''">
+                and p.sickerid = (select id from sicker where name = #{sicker.name})
+            </if>
+            <if test="id!=null and id>0">
+                and p.id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addPrescription" keyProperty="id" useGeneratedKeys="true" parameterType="Prescription">
+        insert into prescription(typeid, staffid, sickerid, illnessid, curedate, state, mainsuit)
+        values(#{typeid},#{staffid},#{sickerid},#{illnessid},now(),4,#{mainsuit})
+    </insert>
+
+
+    <resultMap id="CureType" type="Prescription">
+        <id property="typeid" column="id"/>
+        <result property="typename" column="name"/>
+    </resultMap>
+
+    <select id="getCureType" resultMap="CureType">
+        select * from cureType
+    </select>
+
+    <resultMap id="Useage" type="Cure">
+        <id column="id" property="useageid"/>
+        <result column="name" property="useageName"/>
+    </resultMap>
+
+    <select id="getUseage" resultMap="Useage">
+        select * from useage
+    </select>
+
+
+
+</mapper>

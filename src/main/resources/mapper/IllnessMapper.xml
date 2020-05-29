@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.future.dao.IllnessDao">
+
+    <select id="getIllnessTypeList" parameterType="IllnessType" resultType="IllnessType">
+        select * from illnesstype
+        <where>
+            <if test="id!=null and id>0">
+                id = #{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="ill" type="Illness">
+        <id column="i.id" property="id"/>
+        <result column="i.name" property="name"/>
+        <result column="i.typeid" property="typeid"/>
+        <result column="tname" property="illnessName"/>
+    </resultMap>
+
+    <select id="getIllnessByTypeId" parameterType="Illness" resultMap="ill">
+        select i.id,i.name,i.typeid,t.name as 'tname' from illness i
+        left join illnesstype t on i.typeid = t.id
+        <where>
+            <if test="typeid!=null and typeid>0">
+                i.typeid = #{typeid}
+            </if>
+            <if test="name!=null and name!=''">
+                and i.name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addIllnessType" parameterType="IllnessType">
+        insert into illnesstype(name) values(#{name})
+    </insert>
+
+    <insert id="addIllness" parameterType="Illness">
+        insert into illness(name,typeid) values(#{name},#{typeid})
+    </insert>
+
+    <delete id="delIllnessType" parameterType="IllnessType">
+        delete from illnesstype where id=#{id}
+    </delete>
+
+    <delete id="delIllness" parameterType="Illness">
+        delete from illness where id=#{id}
+    </delete>
+
+    <update id="updateIllnessType" parameterType="IllnessType">
+        update illnesstype set name=#{name} where id=#{id}
+    </update>
+
+    <update id="updateIllness" parameterType="Illness">
+        update illness set name=#{name},typeid=#{typeid} where id=#{id}
+    </update>
+
+</mapper>

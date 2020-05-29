@@ -1,0 +1,319 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": ""
+  },
+  "logoInfo": {
+    "title": "行政管理系统",
+    "image": "static/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "门诊管理",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "病患信息查询",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "开处方",
+              "href": "page/welcome-2.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "处方查询及收费",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "药房管理",
+          "href": "page/menu.html",
+          "icon": "fa fa-window-maximize",
+          "target": "_self",
+          "child": [
+            {
+              "title": "录入药品信息",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "处方笺管理",
+              "href": "page/welcome-2.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "数据查询",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "药品调价",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "药品盘点",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+
+          ]
+        },
+        {
+          "title": "临床医护",
+          "href": "page/setting.html",
+          "icon": "fa fa-gears",
+          "target": "_self",
+          "child": [
+            {
+              "title": "医生工作站",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "就诊记录",
+              "href": "page/welcome-2.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "电子病历",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "护士工作站",
+              "href": "page/welcome-3.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "住院管理",
+          "href": "",
+          "icon": "fa fa-file-text",
+          "target": "_self",
+          "child": [
+            {
+              "title": "入院管理",
+              "href": "",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "押金管理",
+              "href": "",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "结账出院",
+              "href": "",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "病人信息",
+              "href": "",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "每日清单打印",
+              "href": "",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "挂号管理",
+          "href": "",
+          "icon": "fa fa-calendar",
+          "target": "_self",
+          "child": [
+            {
+              "title": "待就诊",
+              "href": "",
+              "icon": "fa fa-list-alt",
+              "target": "_self"
+            },
+            {
+              "title": "已就诊",
+              "href": "",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            },
+            {
+              "title": "挂号信息处理",
+              "href": "",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            }
+          ]
+        },
+
+        {
+          "title": "异常页面",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "404页面",
+              "href": "page/404.html",
+              "icon": "fa fa-hourglass-end",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "扩展平台",
+          "href": "",
+          "icon": "fa fa-snowflake-o",
+          "target": "",
+          "child": [
+            {
+              "title": "农合接口",
+              "href": "",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "医保接口",
+              "href": "",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+            {
+              "title": "电子病历",
+              "href": "",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "报表平台",
+      "icon": "fa fa-tachometer",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "全院收入总汇",
+          "href": "static/page/welcome-2.html",
+          "icon": "fa fa-dot-circle-o",
+          "target": "_self"
+        },
+        {
+          "title": "患者就诊数量",
+          "href": "",
+          "icon": "fa fa-adn",
+          "target": "_self"
+        },
+        {
+          "title": "绩效分析",
+          "href": "",
+          "icon": "fa fa-dashboard",
+          "target": "_self"
+        },
+        {
+          "title": "药品台账",
+          "href": "",
+          "icon": "fa fa-angle-double-down",
+          "target": "_self"
+        },
+        {
+          "title": "初复诊统计",
+          "href": "",
+          "icon": "fa fa-arrow-up",
+          "target": "_self"
+        },
+        {
+          "title": "收费结账",
+          "href": "",
+          "icon": "fa fa-edit",
+          "target": "_self"
+        },
+        {
+          "title": "经营日报",
+          "href": "",
+          "icon": "fa fa-rocket",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "title": "行政管理",
+      "icon": "fa fa-slideshare",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "人事管理",
+          "href": "",
+          "icon": "fa fa-meetup",
+          "target": "",
+          "child": [
+            {
+              "title": "员工列表",
+              "href": "static/page/stuff_table.jsp",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "员工账号管理",
+              "href": "static/jsp/sicker/registers.jsp",
+              "icon": "fa fa-adn",
+              "target": "_self"
+            },
+            {
+              "title": "员工权限",
+              "href": "",
+              "icon": "fa fa-dashboard",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "权限管理",
+          "href": "",
+          "icon": "fa fa-superpowers",
+          "target": "_self"
+        },
+        {
+          "title": "操作日志",
+          "href": "",
+          "icon": "fa fa-superpowers",
+          "target": "_self"
+        }
+      ]
+    }
+  ]
+}

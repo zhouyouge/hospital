@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.dao.SickertransDao">
+        <select id="querySickertrans" resultType="Sickertrans">
+              SELECT * FROM sickertrans
+        </select>
+        <insert id="addSickertrans" parameterType="Sickertrans">
+            INSERT INTO sickertrans(cardid,transtype,number,transdate,remark)
+            VALUES(#{cardid},#{transtype},#{number},#{transdate},#{remark})
+        </insert>
+        <delete id="deleteSickertrans" parameterType="int">
+            DELETE FROM sickertrans WHERE id=#{id}
+        </delete>
+    <update id="updateSickertrans" parameterType="Sickertrans">
+            UPDATE sickertrans SET cardid=#{cardid},transtype=#{transtype},number=#{number},
+            transdate=#{transdate},remark=#{remark} where id=#{id}
+</update>
+</mapper>

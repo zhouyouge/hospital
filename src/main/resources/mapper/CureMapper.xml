@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.future.dao.CureDao">
+    <select id="getList" parameterType="Cure" resultType="Cure">
+        select * from cure
+    </select>
+    
+    <insert id="addCure" parameterType="java.util.List">
+        insert  into  cure(choose, useageid, dosageid, bill, pid,remark,unitid)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            ((select id from drug where name = #{item.drugName}),
+            (select id from useage where name =  #{item.useageName}),
+            #{item.dosageid},#{item.bill},#{item.pid},#{item.remark},
+            (select id from unit where name = #{item.unitName}))
+        </foreach>
+    </insert>
+
+    <delete id="delCure" parameterType="Cure">
+        delete from cure where id=#{id}
+    </delete>
+
+    <update id="modCure" parameterType="Cure">
+        update cure
+        <set>
+            <if test="choose!=null and choose!=0">
+              choose = #{choose}
+            </if>
+            <if test="useageid!=null and useageid!=0">
+                useageid = #{useageid}
+            </if>
+            <if test="dosageid!=null and dosageid!=0">
+                dosageid = #{dosageid}
+            </if>
+            <if test="bill!=null and bill!=0">
+                bill = #{bill}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    
+
+</mapper>

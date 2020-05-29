@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.dao.RegisterDao" >
+    <insert id="addRegister" parameterType="Register">
+      INSERT INTO register(cardid,doctorid,toseedoctor)
+      VALUES(#{cardid},#{doctorid},#{toseedoctor});
+    </insert>
+
+    <insert id="yyRegister" parameterType="Register">
+     INSERT INTO register(cardid,doctorid,toseedoctor)
+          VALUES(#{register.cardid},#{register.doctorid},#{register.toseedoctor});
+    </insert>
+
+
+    <resultMap id="re" type="Register">
+        <id column="id" property="id"/>
+        <result column="toseedoctor" property="toseedoctor"/>
+        <result column="cardid" property="cardid"/>
+        <association property="stuff" javaType="Stuff">
+            <result property="dname" column="name"/>
+        </association>
+        <association property="sicker" javaType="Sicker">
+            <result column="sid" property="id"/>
+            <result column="sname" property="name"/>
+            <result column="tel" property="tel"/>
+            <result column="age" property="age"/>
+            <result column="balance" property="balance"/>
+            <result column="sbid" property="sbid"/>
+            <result column="sex" property="sex"/>
+        </association>
+    </resultMap>
+
+    <select id="showRegister" parameterType="Register" resultMap="re">
+        select r.id as 'id' , r.toseedoctor as 'toseedoctor',
+        st.name as 'dname',si.name as 'sname',si.cardid as 'cardid',
+        si.tel as 'tel',si.age as 'age',si.balance as 'balance',
+        si.sbid as 'sbid',si.sex as 'sex',si.id as 'sid'
+        from register r
+        left join stuff st on st.id = r.doctorid
+        left join sicker si on si.cardid = r.cardid
+        <where>
+            <if test="stuff!=null">
+                <if test="stuff.id>0">
+                    st.id = #{stuff.id}
+                </if>
+            </if>
+            <if test="sicker!=null">
+                <if test="sicker.id>0">
+                    si.id = #{sicker.id}
+                </if>
+                <if test="cardid!=null and cardid!=''">
+                    r.cardid = #{cardid}
+                </if>
+            </if>
+            <if test="toseedoctorStart!=null and toseedoctorStart!=''">
+                r.toseedoctor like "${toseedoctorStart}%"
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getRegisterCount" parameterType="Register" resultType="int">
+        select count(distinct r.id) from register r
+        left join stuff st on st.id = r.doctorid
+        left join sicker si on si.cardid = r.cardid
+        <where>
+            <if test="stuff!=null">
+                <if test="stuff.id>0">
+                    st.id = #{stuff.id}
+                </if>
+            </if>
+            <if test="sicker!=null">
+                <if test="sicker.id>0">
+                    si.id = #{sicker.id}
+                </if>
+                <if test="cardid!=null and cardid!=''">
+                    r.cardid = #{cardid}
+                </if>
+            </if>
+            <if test="toseedoctorStart!=null and toseedoctorStart!=''">
+                r.toseedoctor like "${toseedoctorStart}%"
+            </if>
+        </where>
+    </select>
+</mapper>
